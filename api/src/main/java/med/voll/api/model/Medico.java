@@ -1,5 +1,6 @@
 package med.voll.api.model;
 
+import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,6 +12,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import med.voll.api.DTO.medico.DadosAtualizarMedico;
 import med.voll.api.DTO.medico.DadosCadastroMedico;
 import med.voll.api.enums.Especialidade;
 
@@ -28,6 +30,7 @@ public class Medico {
     private String email;
     private String telefone;
     private String crm;
+    private boolean ativo = true;
 
     @Enumerated(EnumType.STRING)
     private Especialidade especialidade;
@@ -43,5 +46,11 @@ public class Medico {
         this.especialidade = dadosCadastroMedico.especialidade();
         this.endereco = new Endereco(dadosCadastroMedico.endereco());
 
+    }
+
+    public void atualizar(DadosAtualizarMedico medicoAtualizar) {
+        this.nome = StringUtils.isNotEmpty(medicoAtualizar.nome()) ? medicoAtualizar.nome() : this.nome;
+        this.telefone = StringUtils.isEmpty(medicoAtualizar.telefone()) ? medicoAtualizar.telefone() : this.telefone;
+        this.endereco = medicoAtualizar.endereco() != null ? medicoAtualizar.endereco() : this.endereco;
     }
 }
