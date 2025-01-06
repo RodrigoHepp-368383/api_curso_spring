@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
 import med.voll.api.DTO.autenticacao.DadosAutenticacao;
+import med.voll.api.DTO.autenticacao.DadosTokenJWT;
 import med.voll.api.model.Usuario;
 import med.voll.api.service.TokenService;
 
@@ -24,9 +25,10 @@ public class AutenticacaoController {
     private TokenService tokenService;
 
     public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
-        var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-        var autenticacao = manager.authenticate(token);
-        return ResponseEntity.ok(tokenService.gerarToken((Usuario) autenticacao.getPrincipal()));
+        var autenticacaoToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+        var autenticacao = manager.authenticate(autenticacaoToken);
+        var token = tokenService.gerarToken((Usuario) autenticacao.getPrincipal());
+        return ResponseEntity.ok(new DadosTokenJWT(token));
     }
 
 }
