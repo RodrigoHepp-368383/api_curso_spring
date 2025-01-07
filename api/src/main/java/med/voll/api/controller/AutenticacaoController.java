@@ -13,6 +13,8 @@ import med.voll.api.DTO.autenticacao.DadosAutenticacao;
 import med.voll.api.DTO.autenticacao.DadosTokenJWT;
 import med.voll.api.model.Usuario;
 import med.voll.api.service.TokenService;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 @Controller
 @RequestMapping("/login")
