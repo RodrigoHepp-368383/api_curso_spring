@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ValidationException;
 
 @RestControllerAdvice
 public class TratadorDeErros {
@@ -27,4 +28,10 @@ public class TratadorDeErros {
             this(erro.getField(), erro.getDefaultMessage());
         }
     }
+    
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity tratarErro400(ValidationException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
 }
+
