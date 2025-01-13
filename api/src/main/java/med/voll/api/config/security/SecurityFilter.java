@@ -1,4 +1,4 @@
-package med.voll.api.config;
+package med.voll.api.config.security;
 
 import java.io.IOException;
 
