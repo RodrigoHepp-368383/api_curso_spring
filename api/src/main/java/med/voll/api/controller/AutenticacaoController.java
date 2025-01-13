@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import med.voll.api.DTO.autenticacao.DadosAutenticacao;
 import med.voll.api.DTO.autenticacao.DadosTokenJWT;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequestMapping("/login")
+@SecurityRequirement(name = "bearer-key")
 public class AutenticacaoController {
 
     @Autowired
