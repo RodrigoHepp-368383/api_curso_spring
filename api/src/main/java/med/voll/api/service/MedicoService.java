@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+import med.voll.api.DTO.consulta.DadosAgendamentoConsulta;
 import med.voll.api.DTO.medico.DadosAtualizarMedico;
 import med.voll.api.DTO.medico.DadosDetalhamentoMedico;
 import med.voll.api.DTO.medico.DadosListagemMedico;
@@ -44,4 +45,15 @@ public class MedicoService {
     public DadosDetalhamentoMedico consultarMedico(Long id) {
         return new DadosDetalhamentoMedico(medicoRepository.getReferenceById(id));
     }
+
+    public Medico consultarMedicoPorId(Long id) {
+        return medicoRepository.findById(id).orElse(null);
+    }
+
+    public void isMedicoAtivo(Long id) {
+        if (!medicoRepository.existsByIdAndAtivoTrue(id)) {
+            throw new IllegalArgumentException("Médico inativo");
+        }
+    }
+
 }
