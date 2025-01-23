@@ -57,4 +57,8 @@ public class Consulta {
         this.data = data;
     }
 
+    public Consulta(Object object, Medico medico2, Paciente paciente2, LocalDateTime data2) {
+        //TODO Auto-generated constructor stub
+    }
+
 }
